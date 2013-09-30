@@ -1,0 +1,15 @@
+{
+  "postgresql93": {
+    "listen_address" : "*",
+    "port" : "5432",
+    "shared_buffers" : "512MB",
+    "from_address" : "0.0.0.0/0",
+    "password" : "passw0rd",
+    "master_address" : "192.168.1.102",
+    "replication_network" : "192.168.1.0/24"
+  },
+
+  "run_list": [
+    "role[slave]"
+  ]
+}

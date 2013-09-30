@@ -1,0 +1,15 @@
+{
+  "name": "master",
+  "default_attributes": {},
+  "override_attributes": {},
+  "json_class": "Chef::Role",
+  "description": "",
+  "chef_type": "role",
+
+  "run_list": [
+    "recipe[postgresql93]",
+    "recipe[postgresql93::initdb]",
+    "recipe[postgresql93::config_single]"
+  ]
+}
+
