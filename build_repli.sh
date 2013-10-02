@@ -1,9 +1,18 @@
 #!/bin/sh
 
+# build_repli.sh
+#
+# Copyright(c) 2013 Uptime Technologies, LLC.
+
+MASTER_EIP=54.238.126.147
+SLAVE_EIP=54.238.127.37
+
 rm -f ~/.ssh/known_hosts
 
-time knife solo prepare ec2-user@54.238.126.147
-time knife solo prepare ec2-user@54.238.127.37
+echo "Preparing chef solo on master and slave nodes..."
+time knife solo prepare ec2-user@${MASTER_EIP}
+time knife solo prepare ec2-user@${SLAVE_EIP}
 
-time knife solo cook ec2-user@54.238.126.147
-time knife solo cook ec2-user@54.238.127.37
+echo "Running chef solo on master and slave nodes..."
+time knife solo cook ec2-user@${MASTER_EIP}
+time knife solo cook ec2-user@${SLAVE_EIP}

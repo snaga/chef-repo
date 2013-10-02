@@ -2,10 +2,10 @@
   "postgresql93": {
     "listen_address" : "*",
     "port" : "5432",
-    "shared_buffers" : "512MB",
+    "shared_buffers" : "128MB",
     "from_address" : "0.0.0.0/0",
     "password" : "passw0rd",
-    "replication_network" : "192.168.1.0/24"
+    "replication_network" : "54.238.0.0/16"
   },
 
   "run_list": [
