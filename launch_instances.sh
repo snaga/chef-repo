@@ -32,30 +32,6 @@ ec2-run-instances ami-39b23d38 --region ap-northeast-1 \
  | tee -a /tmp/ec2-run-instances.log
 }
 
-
-function wait_for_instances()
-{
-
-while [ 1 ];
-  do echo "Checking instance statuses..."
-
-     ec2-describe-instance-status \
-       --region ap-northeast-1 \
-       -O $AWS_ACCESS_KEY -W $AWS_SECRET_KEY \
-       $MASTER \
-       $SLAVE \
-       | tee /tmp/ec2-describe-instance-status.log
-
-     RUNNING=`grep ^INSTANCE /tmp/ec2-describe-instance-status.log | grep -v INSTANCESTATUS| grep -c running`
-     echo "$RUNNING instance(s) running."
-
-     if [ $RUNNING -eq 2 ]; then
-       break;
-     fi
-     sleep 10;
-done;
-}
-
 function assign_eips()
 {
   echo "Assigning $MASTER_EIP to $MASTER..."
@@ -78,7 +54,7 @@ launch_instances
 MASTER=`grep ^INSTANCE /tmp/ec2-run-instances.log | awk '{ print $2 }' | head -1`
 SLAVE=`grep ^INSTANCE /tmp/ec2-run-instances.log | awk '{ print $2 }' | tail -1`
 
-wait_for_instances
+./check_instances.sh
 
 assign_eips
 

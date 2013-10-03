@@ -43,10 +43,10 @@ while [ 1 ];
        $SLAVE \
        | tee -a /tmp/ec2-describe-instance-status.log
 
-     RUNNING=`grep ^INSTANCE /tmp/ec2-describe-instance-status.log | grep -v INSTANCESTATUS| grep -c running`
-     echo "$RUNNING instance(s) running."
+     NUM=`grep INSTANCE /tmp/ec2-describe-instance-status.log | grep -v INSTANCESTATUS| awk '{ print $7 }' | grep -c ok`
+     echo "$NUM instance(s) ok."
 
-     if [ $RUNNING -eq 2 ]; then
+     if [ $NUM -eq 2 ]; then
        break;
      fi
      sleep 10;
